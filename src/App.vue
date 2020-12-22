@@ -3,6 +3,7 @@
     <div class="header">
       <h1>Alohate</h1>
       <nav>
+        <img src="/assets/Alohate.jpg" alt="Alohate!">
         <button v-on:click="init" v-if="is_auth" > Inicio </button>
         <button v-on:click="getRoomType" v-if="is_auth" > Tipo de Habitación </button>
         <!---<button v-if="is_auth" > Transacción </button>
