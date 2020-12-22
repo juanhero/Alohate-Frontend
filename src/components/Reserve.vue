@@ -30,7 +30,7 @@ export default {
         processReserve: function(){
             var self = this  
 
-            axios.put("http://127.0.0.1:8000/room/reserve/" + self.roomDetails.room)
+            axios.put("https://alohate-app.herokuapp.com/room/reserve/" + self.roomDetails.room)
                 
             .then((result) => {
                 alert("Reserva Exitosa");

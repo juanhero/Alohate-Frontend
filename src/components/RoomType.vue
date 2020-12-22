@@ -43,7 +43,7 @@ export default {
         processRoomType: function(){
             var self = this  
 
-            axios.get("http://127.0.0.1:8000/room/type/" + self.roomDetails.room)
+            axios.get("https://alohate-app.herokuapp.com/room/type/" + self.roomDetails.room)
                 
             .then((result) => {                
                 self.roomDetails.roomType = result.data.roomType
