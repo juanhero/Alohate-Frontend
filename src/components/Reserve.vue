@@ -1,26 +1,13 @@
 <template>
-    <div id="RoomType" class="room_type">
+    <div id="Reserve" class="reserve">
 
-        <div class="container_room_type">
+        <div class="container_reserve">
             <h2>Número de habitación</h2>
-            <form v-on:submit.prevent="processRoomType" >
+            <form v-on:submit.prevent="processReserve" >
                 <input type="text" v-model="roomDetails.room" placeholder="Número">
                 <br>
-                <button type="submit">Buscar</button>
+                <button type="submit">Reservar</button>
             </form>
-                <table border= 1 id="tabla">
-                <tr>
-                    <th>Número</th>
-                    <th>Tipo</th>
-                    <th>Valor</th>
-                    <th>Disponible</th>
-                </tr>
-                <tr>
-                    <td>{{roomDetails.room}}</td>
-                    <td>{{roomDetails.roomType}}</td>
-                    <td>{{roomDetails.value}}</td>
-                    <td>{{roomDetails.available}}</td>
-                </tr>
         </div>
     </div>
 </template>
@@ -28,7 +15,7 @@
 <script>
 import axios from 'axios';
 export default {
-    name: 'RoomType',
+    name: 'Reserve',
     data: function (){
         return {
             roomDetails: {
@@ -40,26 +27,19 @@ export default {
         }
     },
     methods: {
-        processRoomType: function(){
+        processReserve: function(){
             var self = this  
 
-            axios.get("http://127.0.0.1:8000/room/type/" + self.roomDetails.room)
+            axios.put("http://127.0.0.1:8000/room/reserve/" + self.roomDetails.room)
                 
-            .then((result) => {                
-                self.roomDetails.roomType = result.data.roomType
-                self.roomDetails.value = result.data.value
-
-                if(result.data.available == true){
-                    self.roomDetails.available = "Sí"
-                }
-                else{
-                    self.roomDetails.available = "No"
-                }
-                document.getElementById("tabla").style = "display:block"
+            .then((result) => {
+                alert("Reserva Exitosa");
             })
             .catch((error) => {
                 if (error.response.status == "404")
                     alert("ERROR 404: Habitación no existe.");
+                if (error.response.status == "403")
+                    alert("ERROR 403: Habitación en uso.");
             });
         }
     },
@@ -67,7 +47,7 @@ export default {
 </script>
 
 <style>
-    .room_type{
+    .reserve{
         margin: 0;
         padding: 0%;
         height: 100%;
@@ -76,7 +56,7 @@ export default {
         justify-content: center;
         align-items: center;
     }
-    .container_room_type {
+    .container_reserve {
         border: 3px solid #283747;
         border-radius: 10px;
         width: 25%;
@@ -86,13 +66,13 @@ export default {
         justify-content: center;
         align-items: center;
     }
-    .room_type h2{
+    .reserve h2{
         color: #283747;
     }
-    .room_type form{
+    .reserve form{
         width: 50%;
         }
-    .room_type input{
+    .reserve input{
         height: 40px;
         width: 100%;
         box-sizing: border-box;
@@ -100,7 +80,7 @@ export default {
         margin: 5px 0;
         border: 1px solid #283747;
     }
-    .room_type button{
+    .reserve button{
         width: 100%;
         height: 40px;
         color: #E5E7E9;
@@ -110,12 +90,9 @@ export default {
         padding: 10px 25px;
         margin: 5px 0;
     }
-    .room_type button:hover{
+    .reserve button:hover{
         color: #E5E7E9;
         background: crimson;
         border: 1px solid #283747;
-    }
-    .room_type table{
-        display:none;
     }
 </style>

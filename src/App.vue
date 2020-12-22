@@ -3,10 +3,11 @@
     <div class="header">
       <h1>Alohate</h1>
       <nav>
+        <button v-on:click="login" v-if="!is_auth" > Iniciar Sesión </button>
         <button v-on:click="init" v-if="is_auth" > Inicio </button>
         <button v-on:click="getRoomType" v-if="is_auth" > Tipo de Habitación </button>
-        <!---<button v-if="is_auth" > Transacción </button>
-        <button v-if="is_auth" >Cerrar Sesión</button>-->
+        <button v-on:click="reserveRoom" v-if="is_auth" > Reservar </button>
+        <button v-on:click="sesion" v-if="is_auth" >Cerrar Sesión</button>
       </nav>
     </div>
     <div class="main-component"> 
@@ -28,23 +29,30 @@ export default {
     }
   },
   methods: {
+    login: function(){
+      this.$router.push({name: "login"})
+    },
+    sesion: function(){
+      this.is_auth = false;
+      this.$router.push({name: "login"})
+    },
     init: function(){
-      if(this.$route.name != "room"){
-        let room = localStorage.getItem("current_room")
-        this.$router.push({name: "room", params:{room:room}})
+      if(this.$route.name != "username"){
+        let username = localStorage.getItem("current_username")
+        this.$router.push({name: "username", params:{username:username}})
       }
     },
     getRoomType: function(){
-      if(this.$route.name != "room_type"){
-        let room = localStorage.getItem("current_room")
-        this.$router.push({ name:"room_type", params:{room:room}})
-      }
+        this.$router.push({ name:"room_type"})     
     },
+    reserveRoom: function(){
+        this.$router.push({ name:"reserve"})    
+    }
   },
   beforeCreate: function(){
-    localStorage.setItem('current_room', '201')
+    localStorage.setItem('current_username', 'Colsubsidio')
     localStorage.setItem('isAuth', true)
-    this.$router.push({name:"room",params:{room:'201'}})
+    this.$router.push({name:"username",params:{username:'Colsubsidio'}})
   }
 }
 </script>

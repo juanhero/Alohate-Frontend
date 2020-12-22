@@ -1,6 +1,8 @@
 import vueRouter from 'vue-router'
-import Room from './components/Room'
+import User from './components/User'
 import RoomType from './components/RoomType'
+import Login from './components/Login'
+import Reserve from './components/Reserve'
 import App from './App'
 
 const router = new vueRouter({
@@ -13,14 +15,24 @@ const router = new vueRouter({
             component: App //se cargara este componente
         },
         {        
-            path: '/user/:room',
-            name: "room",
-            component: Room
+            path: '/user/:username',
+            name: "username",
+            component: User
         },
         {
-            path: '/user/roomtype/:room',
+            path: '/user/roomtype/',
             name: "room_type",
             component: RoomType
+        },
+        {
+            path: '/user/login/',
+            name: "login",
+            component: Login
+        },
+        {
+            path: '/user/reserve/',
+            name: "reserve",
+            component: Reserve
         },
     ]
 })
